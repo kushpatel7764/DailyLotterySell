@@ -1,26 +1,13 @@
-#  Created by Kush Patel on 2/29/24.
+#  Created by Shiv Patel on 2/29/24.
 
 
 class Ticket: # Extra information about a ticket from scanned code and make a ticket class.
     #Class Variable
     #Consdiering including variables that Setters set instead of doing it at Getters.
     #Setters
-    def setGameNum(scannedCode):
+    def setPrice():
         pass
-    def setID(scannedCode):
-        pass
-    def setTicketNum(scannedCode):
-        pass
-    def setPrice(scannedCode):
-        pass
-    def setBookAmount(scannedCode):
-        pass
-    #Getters
-    def getGameNum():
-        pass
-    def getID():
-        pass
-    def getTicketNum():
+    def setBookAmount():
         pass
     def getPrice():
         pass
@@ -41,9 +28,6 @@ class TicketStatus:
     def appendToOpen():
         pass
     def appendToClose():
-        pass
-    
-    def setToOpenTickets():
         pass
     
     def getOpenTickets():
