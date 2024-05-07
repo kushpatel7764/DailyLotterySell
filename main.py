@@ -4,6 +4,7 @@ class MainProgram:
     
     open_Tickets = []
     close_Tickets = []
+    dict_of_Prices = {0: "1", 1: "2", 2: "5", 3: "10", 4: "20", 5: "30", 6: "50"}
 
     def ask_user_open_tickets(price):
         # Asking for user input for open tickets
@@ -52,7 +53,8 @@ class MainProgram:
         
         #Calculate array of tickets sold for each price and store the array at the index of price
         tickets_at_price = MainProgram.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets)
-        #Add up each array in ticket_at_price to get told number of tickets sold at each price
+        #Add up all values in each array in ticket_at_price to get the total number of tickets sold at each price
+        total_at_each_price = MainProgram.calc_total_at_each_price(tickets_at_price)
         #Multiply total number of tickets sold at each price to get the amount of money made at each price
         #Total every thing to get final total for the amount of money made from selling instant tickets
         
@@ -81,6 +83,7 @@ class MainProgram:
         return to_return
 
     def tickets_sold_for_each_price(open_Tickets, close_Tickets):
+        
         arry_tickets_sold_for_each_price = []
         #Length of tickets should be same at each index for both open and close -- check this later
         for price_index in range(7): #Six input for 50, 30, 20, 10, 5, 2, 1 tickets, Loop through all the prices
@@ -94,19 +97,24 @@ class MainProgram:
                     if open_ticket_num > close_ticket_num:
                         ticket_sold = open_ticket_num - close_ticket_num
                     else:
-                        #Prompt user
-                        pass
+                        #Prompt user for help and store user's answer into ticket_sold
+                        ticket_sold = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
                 elif open_ticket_num == "-" and close_ticket_num == "-":
                     ticket_sold = 0
                 elif open_ticket_num == "-":
-                    #Prompt user
-                    pass
-                elif close_ticket_num == "-":
+                        #Prompt user for help and store user's answer into ticket_sold
+                        ticket_sold = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                elif close_ticket_num == "-": 
                     ticket_sold = open_ticket_num + 1
                 arry_of_tickets_sold_at_price.append(ticket_sold)
             arry_tickets_sold_for_each_price.append(arry_of_tickets_sold_at_price)
         return arry_tickets_sold_for_each_price
 
+    def promptUser_forHelp(index, price, open_tick_num, close_tick_num):
+        return input(f"Please help me calulate tickets sold for slot {index}, {price}: {open_tick_num} - {close_tick_num} = ")
+    
+    def calc_total_at_each_price(tickets_at_price):
+        pass
 
 MainProgram.main()
     
