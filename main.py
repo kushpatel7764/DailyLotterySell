@@ -23,7 +23,16 @@ class MainProgram:
         print("Welcome to Lottery Counter!")
 
         for i in listOfPrices:
+            #Get open ticket numbers
             MainProgram.open_Tickets.append(MainProgram.ask_user_open_tickets(i))
+           
+            #Get close ticket numbers
+            MainProgram.close_Tickets.append(MainProgram.ask_user_close_tickets(i))
+
+            #now maybe work on some calculations with input
+
+
+        
         print(MainProgram.open_Tickets)
 
 MainProgram.main()
