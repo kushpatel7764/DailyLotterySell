@@ -49,11 +49,12 @@ class MainProgram:
             temp_close_str_arry = MainProgram.user_string_to_array(MainProgram.ask_user_close_tickets(atPrice))
             temp_close_int_arry = MainProgram.string_arry_to_int_arry(temp_close_str_arry)
             MainProgram.close_Tickets.append(temp_close_int_arry)
-        #Convet arrays of string to arrays of ints, directly convert open_Tickets and close_Tickets
         
-        
-        #Calculate total tickets sold for each price and store the total at the index of price
+        #Calculate array of tickets sold for each price and store the array at the index of price
         tickets_at_price = MainProgram.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets)
+        #Add up each array in ticket_at_price to get told number of tickets sold at each price
+        #Multiply total number of tickets sold at each price to get the amount of money made at each price
+        #Total every thing to get final total for the amount of money made from selling instant tickets
         
         print(MainProgram.open_Tickets)
 
@@ -80,12 +81,31 @@ class MainProgram:
         return to_return
 
     def tickets_sold_for_each_price(open_Tickets, close_Tickets):
+        arry_tickets_sold_for_each_price = []
         #Length of tickets should be same at each index for both open and close -- check this later
         for price_index in range(7): #Six input for 50, 30, 20, 10, 5, 2, 1 tickets, Loop through all the prices
-            #For each price iterate through open and close list to calculate subtraction 
-            
-            pass
-        pass
+            arry_of_tickets_sold_at_price = []
+            #For each price iterate through open or close list to calculate subtraction, length of open or close should be same so it does not matter which one is being iterated.
+            for i,open_ticket_num in enumerate(open_Tickets):
+                close_ticket_num = close_Tickets[i]
+                #Subtract number from open with number from close to get how many tickets were sold
+                #Work with nil 
+                if open_ticket_num != "-" and close_ticket_num != "-":
+                    if open_ticket_num > close_ticket_num:
+                        ticket_sold = open_ticket_num - close_ticket_num
+                    else:
+                        #Prompt user
+                        pass
+                elif open_ticket_num == "-" and close_ticket_num == "-":
+                    ticket_sold = 0
+                elif open_ticket_num == "-":
+                    #Prompt user
+                    pass
+                elif close_ticket_num == "-":
+                    ticket_sold = open_ticket_num + 1
+                arry_of_tickets_sold_at_price.append(ticket_sold)
+            arry_tickets_sold_for_each_price.append(arry_of_tickets_sold_at_price)
+        return arry_tickets_sold_for_each_price
 
 
 MainProgram.main()
