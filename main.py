@@ -56,7 +56,9 @@ class MainProgram:
         #Add up all values in each array in ticket_at_price to get the total number of tickets sold at each price
         total_at_each_price = MainProgram.calc_total_at_each_price(tickets_at_price)
         #Multiply total number of tickets sold at each price to get the amount of money made at each price
+        money_at_each_price = MainProgram.getMoneyValue_from_tickets_sold(total_at_each_price)
         #Total every thing to get final total for the amount of money made from selling instant tickets
+        total_instant_sell = MainProgram.getTotal_instant_sell(money_at_each_price)
         
         print(MainProgram.open_Tickets)
 
@@ -98,12 +100,23 @@ class MainProgram:
                         ticket_sold = open_ticket_num - close_ticket_num
                     else:
                         #Prompt user for help and store user's answer into ticket_sold
-                        ticket_sold = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                        ticket_sold_string = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                        if MainProgram._string_is_numerical(ticket_sold_string):                     
+                            ticket_sold = int(ticket_sold_string)
+                        else:
+                            #TODO: Prompt user again
+                            print("Value conversion error!")
                 elif open_ticket_num == "-" and close_ticket_num == "-":
                     ticket_sold = 0
                 elif open_ticket_num == "-":
                         #Prompt user for help and store user's answer into ticket_sold
-                        ticket_sold = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                        ticket_sold_string = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                        if MainProgram._string_is_numerical(ticket_sold_string):                     
+                            ticket_sold = int(ticket_sold_string)
+                        else:
+                            #TODO: Prompt user again
+                            print("Value conversion error!")
+                        ticket_sold = int(ticket_sold_string)
                 elif close_ticket_num == "-": 
                     ticket_sold = open_ticket_num + 1
                 arry_of_tickets_sold_at_price.append(ticket_sold)
@@ -113,8 +126,46 @@ class MainProgram:
     def promptUser_forHelp(index, price, open_tick_num, close_tick_num):
         return input(f"Please help me calulate tickets sold for slot {index}, {price}: {open_tick_num} - {close_tick_num} = ")
     
+    def _string_is_numerical(in_string):
+        """ 
+        returns True if the incoming parameter can be converted to float (i.e. is a number)
+        returns False otherwise - checks for TypeError and ValueError on incoming value
+        """  
+
+        try:
+            float(in_string)
+            return True
+        except TypeError:
+            return False
+        except ValueError:
+            return False
+    
     def calc_total_at_each_price(tickets_at_price):
-        pass
+        toreturn = []
+        #Loop through all the prices
+        for price in tickets_at_price:
+            priceTotal = 0
+            #Loop thorugh each price and add all the sold tickets
+            for v in tickets_at_price[price]:
+                priceTotal += v
+            toreturn.append(priceTotal)
+        return toreturn
+
+    def getMoneyValue_from_tickets_sold(ticketSold_at_each_price):
+        toreturn = []
+        #Loop through each price 
+        #[1, 2, 3, 4, 5, 6, 7]
+        for (i,v) in enumerate(ticketSold_at_each_price): #i = index, v = value
+            money_at_price = v * int(MainProgram.dict_of_Prices[i])
+            toreturn.append(money_at_price)
+        return toreturn
+
+    def getTotal_instant_sell(money_at_each_price):
+        sellTotal = 0
+        #Loop thorugh each price and add all the sold tickets
+        for v in money_at_each_price:
+            sellTotal += v
+        return sellTotal
 
 MainProgram.main()
     
