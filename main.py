@@ -1,4 +1,5 @@
 import UtilityFunctions;
+import UserExit
 
 class MainProgram:
 
@@ -12,7 +13,7 @@ class MainProgram:
         # Asking for user input for open tickets
         userInput = input(f"${price} tickets in open (type \"exit\" to quit)\n")
         #check for exit
-        if UtilityFunctions.isExit(userInput) == True:
+        if UserExit.isExit(userInput) == True:
             exit(0)
         #return userinput
         return userInput
@@ -21,7 +22,7 @@ class MainProgram:
         # Asking for user input for close tickets
         userInput = input(f"${price} tickets in close (type \"exit\" to quit)\n")
         #check for exit
-        if UtilityFunctions.isExit(userInput) == True:
+        if UserExit.isExit(userInput) == True:
             exit(0)
         #return userinput
         return userInput
@@ -89,7 +90,7 @@ class MainProgram:
                 elif open_ticket_num == "-":
                         #Prompt user for help and store user's answer into ticket_sold
                         ticket_sold_string = MainProgram.promptUser_forHelp(price_index + 1, MainProgram.dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
-                        if UtilityFunctions._string_is_numerical(ticket_sold_string):                     
+                        if UtilityFunctions._string_is_numerical(ticket_sold_string):                   
                             ticket_sold = int(ticket_sold_string)
                         else:
                             #TODO: Prompt user again
