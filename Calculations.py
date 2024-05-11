@@ -11,8 +11,8 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
     for price_index in range(7): #Six input for 50, 30, 20, 10, 5, 2, 1 tickets, Loop through all the prices
         arry_of_tickets_sold_at_price = []
         #For each price iterate through open or close list to calculate subtraction, length of open or close should be same so it does not matter which one is being iterated.
-        for i,open_ticket_num in enumerate(open_Tickets):
-            close_ticket_num = close_Tickets[i]
+        for i,open_ticket_num in enumerate(open_Tickets[price_index]):
+            close_ticket_num = close_Tickets[price_index][i]
             #Subtract number from open with number from close to get how many tickets were sold
             #Work with nil 
             if open_ticket_num != "-" and close_ticket_num != "-":
@@ -48,10 +48,10 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
 def calc_total_at_each_price(tickets_at_price):
     toreturn = []
     #Loop through all the prices
-    for price in tickets_at_price:
+    for i ,price in enumerate(tickets_at_price):
         priceTotal = 0
         #Loop thorugh each price and add all the sold tickets
-        for v in tickets_at_price[price]:
+        for v in tickets_at_price[i]:
             priceTotal += v
         toreturn.append(priceTotal)
     return toreturn
