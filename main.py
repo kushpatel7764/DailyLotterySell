@@ -1,6 +1,15 @@
 import UtilityFunctions
 import PromptUser
 import Calculations
+import os.path #Is used to check if a file exists or not
+
+path = "./previous_day_close_data" #Path to the file, which I want to check if it exists or not. 
+
+def _does_file_exists(path):
+    if os.path.isfile(path):
+        return True
+    else:
+        return False
 
 class MainProgram:
 
@@ -20,10 +29,14 @@ class MainProgram:
 
         #Get userinput and place in open and close arrays
         for atPrice in listOfPrices:
-            #Get open ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
-            temp_open_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_open_tickets(atPrice))
-            temp_open_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_open_str_arry)
-            MainProgram.open_Tickets.append(temp_open_int_arry)
+            #Only want to ask user for open input, if no previous day close data is dectected. 
+            if (_does_file_exists(path) and len(MainProgram.open_Tickets) < 1):
+                MainProgram.open_Tickets.append("Nothing")
+            else:
+                #Get open ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
+                temp_open_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_open_tickets(atPrice))
+                temp_open_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_open_str_arry)
+                MainProgram.open_Tickets.append(temp_open_int_arry)
            
             #Get close ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
             temp_close_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_close_tickets(atPrice))
