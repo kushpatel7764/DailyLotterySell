@@ -30,9 +30,9 @@ class MainProgram:
             temp_close_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_close_str_arry)
             MainProgram.close_Tickets.append(temp_close_int_arry)
         
-        #Calculate array of tickets sold for each price and store the array at the index of price
+        #Calculate array of tickets sold for each price and store the array at the index of price. 
         tickets_at_price = Calculations.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets)
-        #Add up all values in each array in ticket_at_price to get the total number of tickets sold at each price
+        #Add up all values in each array in ticket_at_price to get the total number of tickets sold at each price.
         total_at_each_price = Calculations.calc_total_at_each_price(tickets_at_price)
         #Multiply total number of tickets sold at each price to get the amount of money made at each price
         money_at_each_price = Calculations.getMoneyValue_from_tickets_sold(total_at_each_price)

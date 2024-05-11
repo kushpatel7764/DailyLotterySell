@@ -48,8 +48,8 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
 def calc_total_at_each_price(tickets_at_price):
     toreturn = []
     #Loop through all the prices
-    for i ,price in enumerate(tickets_at_price):
-        priceTotal = 0
+    for i ,price in enumerate(tickets_at_price): # Value of price is no longer needed.
+        priceTotal = 0 
         #Loop thorugh each price and add all the sold tickets
         for v in tickets_at_price[i]:
             priceTotal += v
