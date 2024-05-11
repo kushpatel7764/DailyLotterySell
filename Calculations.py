@@ -24,7 +24,7 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
                     if UtilityFunctions._string_is_numerical(ticket_sold_string):                     
                         ticket_sold = int(ticket_sold_string)
                     else:
-                        #TODO: Prompt user again
+                        #TODO: Prompt user again.
                         print("Value conversion error!")
             elif open_ticket_num == "-" and close_ticket_num == "-":
                 ticket_sold = 0

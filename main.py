@@ -30,7 +30,8 @@ class MainProgram:
         #Get userinput and place in open and close arrays
         for atPrice in listOfPrices:
             #Only want to ask user for open input, if no previous day close data is dectected. 
-            if (_does_file_exists(path) and len(MainProgram.open_Tickets) < 1):
+            if (_does_file_exists(path)):
+                #TODO: Runing too many times, fix later. 
                 MainProgram.open_Tickets.append("Nothing")
             else:
                 #Get open ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
