@@ -28,6 +28,14 @@ def string_arry_to_int_arry(str_arry):
                 exit(0)
         return to_return
 
+def int_arry_to_string_arry(int_arry):
+        to_return = []
+        for digit in int_arry:
+            to_return.append(str(digit))
+        return to_return
+
+
+
 def user_string_to_array(userInput):
     #strip() - will remove leading and trailing white spaces
     temp_string = userInput.strip()
