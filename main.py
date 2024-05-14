@@ -1,6 +1,7 @@
 import UtilityFunctions
 import PromptUser
 import Calculations
+import TableOutput_Management
 
 class MainProgram:
 
@@ -32,14 +33,31 @@ class MainProgram:
         
         #Calculate array of tickets sold for each price and store the array at the index of price. 
         tickets_at_price = Calculations.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets)
-        #Add up all values in each array in ticket_at_price to get the total number of tickets sold at each price.
-        total_at_each_price = Calculations.calc_total_at_each_price(tickets_at_price)
+        #Add up all values in each array in ticket_at_price to get the total number of tickets sold at each price
+        total_at_each_price = Calculations.calc_total_at_each_price(tickets_at_price) #Sell
         #Multiply total number of tickets sold at each price to get the amount of money made at each price
         money_at_each_price = Calculations.getMoneyValue_from_tickets_sold(total_at_each_price)
         #Total every thing to get final total for the amount of money made from selling instant tickets
         total_instant_sell = Calculations.getTotal_instant_sell(money_at_each_price)
+
+        #Convert open_Tickets, close_Tickets, sell to string
+        open = []
+        close = []
+        sell = []
+        for price in range(7):
+            #convert open_Tickets
+            open.append(UtilityFunctions.int_arry_to_string_arry(MainProgram.open_Tickets[price]))
+            #convert close_Tickets
+            close.append(UtilityFunctions.int_arry_to_string_arry(MainProgram.close_Tickets[price]))
+            #convert total_at_each_price - sell_arry
+            sell.append(UtilityFunctions.int_arry_to_string_arry(tickets_at_price[price]))
+
+
         
-        print(total_at_each_price)
+        table = TableOutput_Management.TableOutput(open, close, sell, total_instant_sell)
+        table.Terminal_Output()
+
+        
 
         
     
