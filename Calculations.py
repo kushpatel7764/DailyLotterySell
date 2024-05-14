@@ -1,7 +1,7 @@
 import PromptUser
 import UtilityFunctions
 
-dict_of_Prices = {0: "1", 1: "2", 2: "5", 3: "10", 4: "20", 5: "30", 6: "50"}
+dict_of_Prices = {6: "1", 5: "2", 4: "5", 3: "10", 2: "20", 1: "30", 0: "50"}
 
 
 def tickets_sold_for_each_price(open_Tickets, close_Tickets):
@@ -16,7 +16,7 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
             #Subtract number from open with number from close to get how many tickets were sold
             #Work with nil 
             if open_ticket_num != "-" and close_ticket_num != "-":
-                if open_ticket_num > close_ticket_num:
+                if open_ticket_num >= close_ticket_num:
                     ticket_sold = open_ticket_num - close_ticket_num
                 else:
                     #Prompt user for help and store user's answer into ticket_sold
