@@ -1,8 +1,9 @@
 import UserExit
+from colorama import Fore
 
 def ask_user_open_tickets(price):
         # Asking for user input for open tickets
-        userInput = input(f"${price} tickets in open (type \"exit\" to quit)\n")
+        userInput = input(f"${price} tickets in {Fore.BLUE}open{Fore.WHITE} (type \"exit\" to quit)\n")
         #check for exit
         if UserExit.isExit(userInput) == True:
             exit(0)
@@ -11,7 +12,7 @@ def ask_user_open_tickets(price):
 
 def ask_user_close_tickets(price):
     # Asking for user input for close tickets
-    userInput = input(f"${price} tickets in close (type \"exit\" to quit)\n")
+    userInput = input(f"${price} tickets in {Fore.RED}close{Fore.WHITE} (type \"exit\" to quit)\n")
     #check for exit
     if UserExit.isExit(userInput) == True:
         exit(0)
