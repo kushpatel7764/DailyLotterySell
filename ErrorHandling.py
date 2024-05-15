@@ -8,5 +8,3 @@ def check_user_input_size(open_arry, close_arry):
     else:
         return False
     
-def reprompt_for_price():
-    pass
