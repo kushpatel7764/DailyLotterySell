@@ -30,12 +30,12 @@ class TableOutput:
     def fortmated_Table(self, tableString = ""):
 
         print("\n")
-        
+        tableString = tableString + TableOutput.Create_Terminal_Row_Label() + "\n"
+        tableString = tableString + TableOutput.Draw_Terminal_Table_Sepration_Line(50) + "\n"
         for price in range(7):
             #For each price create a label
             self.price = dict_of_Prices[price]
-            tableString = tableString + TableOutput.Create_Terminal_Row_Label(self.price) + "\n"
-            tableString = tableString + TableOutput.Draw_Terminal_Table_Sepration_Line(50) + "\n"
+            
             #Create row of data for each price
             for row, value in enumerate(self.open[price]):
                 tableString = tableString + TableOutput.Create_Terminal_Data_Row(self, price, row) + "\n" 
@@ -61,7 +61,7 @@ class TableOutput:
             line = line + "="
         return line
 
-    def Create_Terminal_Row_Label(price):
+    def Create_Terminal_Row_Label():
         """
         Creates the label row for the terminal table.
 
@@ -69,7 +69,7 @@ class TableOutput:
         - A formatted string of row labels.
         """
 
-        labels = [f"${price}" ,"OPEN", "CLOSE", "SELL"]
+        labels = ["#","PRICE" ,"OPEN", "CLOSE", "SELL"]
         return TableOutput.setup_Terminal_Row(labels)
         
     
@@ -86,7 +86,7 @@ class TableOutput:
         """
 
         toReturn = ""
-        lineInfo = [str(self.row_Number), self.open[price][lineNum], self.close[price][lineNum], self.sell[price][lineNum]] #+1 is added to convert from index to number
+        lineInfo = [str(self.row_Number), dict_of_Prices[price],self.open[price][lineNum], self.close[price][lineNum], self.sell[price][lineNum]] #+1 is added to convert from index to number
         self.row_Number += 1
         toReturn = TableOutput.setup_Terminal_Row(lineInfo, toReturn)
         return toReturn
@@ -105,7 +105,7 @@ s
 
         for column, line in enumerate(lineInfo):
             if column == 0:
-                toAppendReturn = toAppendReturn + f'{line:^10}' 
+                toAppendReturn = toAppendReturn + f'{line:^5}' 
                 continue
             elif column > 1 and column < 8:
                 toAppendReturn = toAppendReturn + f'{line:>10}'
