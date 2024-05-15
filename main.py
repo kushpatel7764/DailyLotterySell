@@ -3,6 +3,7 @@ import PromptUser
 import Calculations
 import TableOutput_Management
 from colorama import Fore
+import ErrorHandling
 
 #TODO: Check for same length at open and close
 #TODO: When user prompted for help, give vaild GameNumber or a good spot 
@@ -24,20 +25,37 @@ class MainProgram:
         print("\nEnter Tickets:")
         print("[Seperate out each ticket using space (ex. 20 21 22 23...) and place \"-\" for empty box or no ticket]\n")
     
-
         #Get userinput and place in open and close arrays
-        for atPrice in listOfPrices:
+        atPrice = 0
+        while atPrice < 7:
             #Get open ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
-            temp_open_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_open_tickets(atPrice))
+            temp_open_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_open_tickets(listOfPrices[atPrice]))
+            #Allows user to go to previous price if the user enters "p" at index 0.
+            if temp_open_str_arry[0] == "p":
+                if atPrice > 0:
+                    atPrice -= 1
+                continue
             temp_open_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_open_str_arry)
             
-            MainProgram.open_Tickets.append(temp_open_int_arry)
-           
+
             #Get close ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
-            temp_close_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_close_tickets(atPrice))
+            temp_close_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_close_tickets(listOfPrices[atPrice]))
+            #Allows user to go to previous price if the user enters "p" at index 0.
+            if temp_close_str_arry[0] == "p":
+                if atPrice > 0:
+                    atPrice -= 1 
+                continue
             temp_close_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_close_str_arry)
-            MainProgram.close_Tickets.append(temp_close_int_arry)
-            
+
+
+            #If the user puts the same amount of inputs for a price then append else rerun the same price
+            if (ErrorHandling.check_user_input_size(temp_open_int_arry, temp_close_int_arry)):
+                MainProgram.open_Tickets.append(temp_open_int_arry)
+                MainProgram.close_Tickets.append(temp_close_int_arry)
+                atPrice += 1
+            else:
+                print("Error open and close sizes do not match at price!")
+
         
         #Calculate array of tickets sold for each price and store the array at the index of price. 
         tickets_at_price = Calculations.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets) #Sell

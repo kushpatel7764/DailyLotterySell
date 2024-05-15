@@ -41,3 +41,4 @@ def user_string_to_array(userInput):
     temp_string = userInput.strip()
     temp_array = temp_string.split(" ")
     return temp_array
+
