@@ -2,10 +2,12 @@ import UtilityFunctions
 import PromptUser
 import Calculations
 import TableOutput_Management
+from colorama import Fore
 
 #TODO: Check for same length at open and close
 #TODO: When user prompted for help, give vaild GameNumber or a good spot 
 #TODO: Previos input in user prompt 
+#TODO: Excel Output
 
 class MainProgram:
 
@@ -35,6 +37,7 @@ class MainProgram:
             temp_close_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_close_tickets(atPrice))
             temp_close_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_close_str_arry)
             MainProgram.close_Tickets.append(temp_close_int_arry)
+            
         
         #Calculate array of tickets sold for each price and store the array at the index of price. 
         tickets_at_price = Calculations.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets) #Sell
