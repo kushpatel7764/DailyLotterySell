@@ -3,6 +3,10 @@ import PromptUser
 import Calculations
 import TableOutput_Management
 
+#TODO: Check for same length at open and close
+#TODO: When user prompted for help, give vaild GameNumber or a good spot 
+#TODO: Previos input in user prompt 
+
 class MainProgram:
 
     """Ask for inputs like $50, $30, $20, $10, $5, $2, $1 in open and closed. Total 12 inputs"""
