@@ -20,7 +20,8 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
                     ticket_sold = open_ticket_num - close_ticket_num
                 else:
                     #Prompt user for help and store user's answer into ticket_sold
-                    ticket_sold_string = PromptUser.promptUser_forHelp(price_index + 1, dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                    at_spot = find_final_table_spot_for_index(i, price_index, open_Tickets)
+                    ticket_sold_string = PromptUser.promptUser_forHelp(at_spot, dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
                     if UtilityFunctions._string_is_numerical(ticket_sold_string):                     
                         ticket_sold = int(ticket_sold_string)
                     else:
@@ -30,7 +31,8 @@ def tickets_sold_for_each_price(open_Tickets, close_Tickets):
                 ticket_sold = 0
             elif open_ticket_num == "-":
                     #Prompt user for help and store user's answer into ticket_sold
-                    ticket_sold_string = PromptUser.promptUser_forHelp(price_index + 1, dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
+                    at_spot = find_final_table_spot_for_index(i, price_index, open_Tickets)
+                    ticket_sold_string = PromptUser.promptUser_forHelp(at_spot, dict_of_Prices.get(price_index), open_ticket_num, close_ticket_num)
                     if UtilityFunctions._string_is_numerical(ticket_sold_string):                   
                         ticket_sold = int(ticket_sold_string)
                     else:
@@ -71,3 +73,24 @@ def getTotal_instant_sell(money_at_each_price):
     for v in money_at_each_price:
         sellTotal += v
     return sellTotal
+
+def find_final_table_spot_for_index(index, price_index, open_arry):
+    """
+    Find the final spot that the given index will have in the table output. 
+    The final spot in table depends on the price that the given index is in. For example,
+    if index is in the $50 price range then just adding 1 to the index will give the final spot. However, if index is in $30 
+    range then get the size of $50 array and then add to it the index + 1 to get final spot. 
+    """
+    
+    row = 0
+    for i in range(price_index + 1):#price_index + 1 is price_index that includes the exclusion by range
+        if i == 0:
+            final_spot = index + 1
+            continue
+        previous_price_length = len(open_arry[i-1])
+        row = row + previous_price_length
+    final_spot = final_spot + row 
+
+    return final_spot   
+    
+

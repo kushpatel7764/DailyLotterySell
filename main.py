@@ -5,11 +5,10 @@ import TableOutput_Management
 from colorama import Fore
 import ErrorHandling
 
-#TODO: Check for same length at open and close
-#TODO: When user prompted for help, give vaild GameNumber or a good spot 
-#TODO: Previos input in user prompt 
-#TODO: Excel Output
-
+#TODO: Get scanner working 
+    #TODO: When user prompted for help, give vaild GameNumber as well
+    #TODO: Excel Output
+#TODO: Save to open from previous day's close
 class MainProgram:
 
     """Ask for inputs like $50, $30, $20, $10, $5, $2, $1 in open and closed. Total 12 inputs"""
@@ -24,7 +23,7 @@ class MainProgram:
         print("-------------\nWelcome to Lottery Counter!\n-------------")
         print("\nEnter Tickets:")
         print("[Seperate out each ticket using space (ex. 20 21 22 23...) and place \"-\" for empty box or no ticket]\n")
-    
+
         #Get userinput and place in open and close arrays
         atPrice = 0
         while atPrice < 7:

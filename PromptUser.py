@@ -22,4 +22,4 @@ def ask_user_close_tickets(price):
     return userInput
 
 def promptUser_forHelp(index, price, open_tick_num, close_tick_num):
-    return input(f"Please help me calulate tickets sold for slot {index}, {price}: {open_tick_num} - {close_tick_num} = ")
+    return input(f"Please help me calulate tickets sold for slot {index}, ${price}: {open_tick_num} - {close_tick_num} = ")
