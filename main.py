@@ -2,9 +2,11 @@ import UtilityFunctions
 import PromptUser
 import Calculations
 import TableOutput_Management
-from colorama import Fore
 import ErrorHandling
 
+#TODO: consider making a ticket class (low priority)
+
+#TODO: go to previous price
 #TODO: Get scanner working 
     #TODO: When user prompted for help, give vaild GameNumber as well
     #TODO: Excel Output
@@ -15,36 +17,29 @@ class MainProgram:
     
     open_Tickets = []
     close_Tickets = []
-    
-    def main():
-        listOfPrices = ["50", "30", "20", "10", "5", "2", "1"]
+    listOfPrices = ["50", "30", "20", "10", "5", "2", "1"]
 
-        #Print Welcome Message
-        print("-------------\nWelcome to Lottery Counter!\n-------------")
-        print("\nEnter Tickets:")
-        print("[Seperate out each ticket using space (ex. 20 21 22 23...) and place \"-\" for empty box or no ticket]\n")
-
+    def setup_user_input():
         #Get userinput and place in open and close arrays
         atPrice = 0
         while atPrice < 7:
-            #Get open ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
-            temp_open_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_open_tickets(listOfPrices[atPrice]))
-            #Allows user to go to previous price if the user enters "p" at index 0.
-            if temp_open_str_arry[0] == "p":
-                if atPrice > 0:
-                    atPrice -= 1
-                continue
-            temp_open_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_open_str_arry)
+
+
+            #Get open ticket numbers from user in string.
+            userInputOpen = PromptUser.ask_user_tickets(MainProgram.listOfPrices[atPrice], "open")
+            #Two types of userInput:
+            #1: keyboard -> "10 20 30 40 5 2"
+            #2: Scanner -> "32923902930949578497554923\n"
             
 
-            #Get close ticket numbers from user in string, convert to array of str, convert to arry of int, then place in open_Ticket array
-            temp_close_str_arry = UtilityFunctions.user_string_to_array(PromptUser.ask_user_close_tickets(listOfPrices[atPrice]))
-            #Allows user to go to previous price if the user enters "p" at index 0.
-            if temp_close_str_arry[0] == "p":
-                if atPrice > 0:
-                    atPrice -= 1 
-                continue
-            temp_close_int_arry = UtilityFunctions.string_arry_to_int_arry(temp_close_str_arry)
+            # convert to arry of int, then place in open_Ticket array
+            temp_open_int_arry = UtilityFunctions.string_arry_to_int_arry(userInputOpen)
+            
+            #Get close ticket numbers from user in string.
+            userInputClose = PromptUser.ask_user_tickets(MainProgram.listOfPrices[atPrice], "close")
+
+            # convert to arry of int, then place in open_Ticket array
+            temp_close_int_arry = UtilityFunctions.string_arry_to_int_arry(userInputClose)
 
 
             #If the user puts the same amount of inputs for a price then append else rerun the same price
@@ -55,6 +50,14 @@ class MainProgram:
             else:
                 print("Error open and close sizes do not match at price!")
 
+    
+    def main():
+        #Print Welcome Message
+        print("-------------\nWelcome to Lottery Counter!\n-------------")
+        print("\nEnter Tickets:")
+        print("[Seperate out each ticket using space (ex. 20 21 22 23...) and place \"-\" for empty box or no ticket]\n")
+
+        MainProgram.setup_user_input()
         
         #Calculate array of tickets sold for each price and store the array at the index of price. 
         tickets_at_price = Calculations.tickets_sold_for_each_price(MainProgram.open_Tickets, MainProgram.close_Tickets) #Sell

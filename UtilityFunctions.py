@@ -42,3 +42,16 @@ def user_string_to_array(userInput):
     temp_array = temp_string.split(" ")
     return temp_array
 
+def is_input_from_scanner(input):
+     if len(input) >= 29:
+          return True
+     else:
+          return False
+     
+def get_ticket_num(input):
+     """
+     From scanner input: get ticket number
+     """
+     tick_num = input[11:14]
+     return tick_num
+
