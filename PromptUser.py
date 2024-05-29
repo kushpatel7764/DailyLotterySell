@@ -1,4 +1,5 @@
 import UserExit
+import UtilityFunctions
 
 def ask_user_tickets(price, time):
         userInput = []
@@ -12,10 +13,14 @@ def ask_user_tickets(price, time):
             #check for exit 
             if UserExit.isExit(row_val) == True:
                 exit(0)
+            #check for scanner input
             #if used pressed enter
             if row_val == "":
                  keepGoing = False
             else: 
+                #check for scanner input
+                if UtilityFunctions.is_input_from_scanner(row_val):
+                     row_val = UtilityFunctions.get_ticket_num(row_val)
                 userInput.append(row_val)
                 row_num += 1
         #return userinput
