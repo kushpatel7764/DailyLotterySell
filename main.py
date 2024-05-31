@@ -102,6 +102,9 @@ class MainProgram:
             print("Saving Closing numbers now...")
             closeFile = Manage_SaveToFile.SaveToCloseNumFile(MainProgram.close_Tickets)
             closeFile._save_close_nums_()
+            print("Creating a Excel output file now...")
+            excelFile = TableOutput_Management.ExcelOutput(open, close, sell, total_instant_sell)
+            excelFile.Exel_Output()
 
         
 

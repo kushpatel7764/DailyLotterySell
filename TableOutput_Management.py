@@ -121,6 +121,90 @@ s
         print(TableOutput.fortmated_Table(self))
         print(f"Instant Ticket Sell: {self.instantTotal}")
 
+class ExcelOutput:
+    colum_addtion_per_table = {"50":0,"30":0,"20":0,"10":6, "5":6, "2":12, "1":12}
+    def __init__(self,  open, close, sell, instantTotal):
+        """
+        Initializes a TableOutput object.
+        """
+        self.row_Number = 0 # The number of the row in the terminal table output
+        self.ticket_row_count = 1
+        self.open = open
+        self.close = close
+        self.sell = sell   
+        self.instantTotal = instantTotal
+        self.price = 0
+
+
+    def Exel_Output(self):
+        """
+        Generates an Excel file containing the Lottery data. 
+        """
+        workbook = xlwt.Workbook()
+        sheet = workbook.add_sheet('Lottery Data')
+
+        #Top of the sheet
+
+
+        for table in range(7):
+            #For each price create a label
+            self.price = dict_of_Prices[table]
+
+            #set row and col for different tables
+            if table == 3:
+                self.row_Number  = 0
+            elif table == 5:
+                self.row_Number = 0
+            
+
+            ExcelOutput.Excel_Write_Label(self, sheet, self.price)
+            ExcelOutput.Excel_Write_Data(self, sheet, table)
+
+            #Add a row gab between tables
+            self.row_Number += 1
+
+        # Save the workbook to a file
+        fileName = UtilityFunctions.get_clean_date_string() + ".xls"
+        workbook.save(fileName)
+        print(f"\nExcel file \"{fileName}\" created successfully.\n")
+
+    def Excel_Write_Label(self, sheet, price):
+        """
+        Writes labels to the Excel sheet.
+
+        Parameters:
+        - sheet: An Excel sheet object.
+        """
+
+        labels = [f"${price}","Game #" ,"OPEN", "CLOSE", "SELL"]
+        for col, label in enumerate(labels):
+            #set column for different tables
+            col = col + ExcelOutput.colum_addtion_per_table[price]
+            sheet.write(self.row_Number, col, label)
+        #Go to next row
+        self.row_Number += 1
+    
+    def Excel_Write_Data(self, sheet, table):
+        """
+        Writes data to the Excel sheet. The first loop picks a row and the second loop sets a columbs at a row from the first loop. 
+
+        Parameters:
+        - sheet: An Excel sheet object.
+        """        
+
+        for lineNum, table_at_price in enumerate(self.open[table]): 
+            data = [str(self.ticket_row_count), "-",self.open[table][lineNum], self.close[table][lineNum], self.sell[table][lineNum]] #+1 is added to convert from index to number
+            for col, value in enumerate(data):
+                #set column for different tables
+                price = str(self.price)
+                col = col + ExcelOutput.colum_addtion_per_table[price]
+                sheet.write(self.row_Number, col, value)
+            #Go to next row
+            self.row_Number += 1
+            #update ticket spot number
+            self.ticket_row_count += 1
+
+   
    
 
     

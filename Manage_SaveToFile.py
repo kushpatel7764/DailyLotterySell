@@ -41,7 +41,7 @@ class ReadCloseNumFile:
             return None
         else:
             #Is close_nums formatted correctly
-            return UtilityFunctions.file_string_to_array(close_nums)
+            return UtilityFunctions.file_string_arry_to_int_arry(UtilityFunctions.file_string_to_array(close_nums))
 
 
 
